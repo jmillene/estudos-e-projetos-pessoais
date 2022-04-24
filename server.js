@@ -1,10 +1,8 @@
-const { response } = require("express");
 const express = require("express");
-const res = require("express/lib/response");
-// const express = require('express'); chamei meu express
 const app = express();
-// const app = express(); instaciei ele nessa const
 const data = require("./data.json");
+// const express = require('express'); chamei meu express
+// const app = express(); instaciei ele nessa const
 
 // O que é o framework Express?
 // Express é um popular framework web estruturado, escrit
@@ -30,18 +28,44 @@ app.get("/clients", function (request, response) {
 
   // Aqui estou falando se não existir o cliente para me retornar um erro.
 });
-app.get("/clients:id", function (request,response){
-    const {id} = request.params; 
-    // params são os parametros da minha requisição
-    const client = data.find(cli => cli = id);
-    // aqui estou dando um find e informar para ele procurar o cliente que tem o id 
-    // passado acima na minha clients:id
-    if(!client)return response.status(404).json();  
+app.get("/clients:id", function (request, response) {
+  const { id } = request.params;
+  // params são os parametros da minha requisição
+  const client = data.find((cli) => (cli = id));
+  // aqui estou dando um find e informar para ele procurar o cliente que tem o id
+  // passado acima na minha clients:id
+  if (!client) return response.status(204).json();
+  response.json(client);
 });
-app.post("/clients:id");
-app.put("/clients:id");
-app.delete("/clients:id");
+app.post("/clients", function (request, response) {
+  const { name, email } = req.body;
+
+  // salvar
+
+  response.json({ name, email });
+});
+
+app.put("/clients/:id", function (request, response) {
+  const { id } = req.params;
+  const client = data.find((cli) => cli.id == id);
+
+  if (!client) return res.status(204).json();
+
+  const { name } = req.body;
+
+  client.name = name;
+
+  res.json(client);
+});
+
+app.delete("/clients/:id", function (request, response) {
+  const { id } = req.params;
+  const clientsFiltered = data.filter((client) => client.id != id);
+
+  response.json(clientsFiltered);
+});
+
 app.listen(3000, function () {
-  // aqui eu estou iniciando meu servidor na porta 3000
-  console.log("iniciando servidor");
+  console.log("Server is running");
 });
+// aqui eu estou iniciando meu servidor na porta 3000

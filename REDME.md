@@ -56,3 +56,4 @@ No caso do restaurante o graçom leva os dados através de um bloquinho de notas
 - 5xx: Server Error 500: Internal Server Error
 
 ## Repositorio copiado de https://github.com/rocketseat-content/youtube-api-rest-restful/blob/master/README.md onde estou estudando sobre APIs
+
